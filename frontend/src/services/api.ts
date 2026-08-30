@@ -1,4 +1,13 @@
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
+const getApiBase = (): string => {
+  const envUrl = (import.meta.env.VITE_API_URL || '').trim();
+  if (!envUrl) return '/api';
+  // Remove trailing slashes
+  const cleanUrl = envUrl.replace(/\/+$/, '');
+  // If it already ends with /api, use it as is; otherwise append /api
+  return cleanUrl.endsWith('/api') ? cleanUrl : `${cleanUrl}/api`;
+};
+
+const API_BASE = getApiBase();
 
 class ApiClient {
   private getToken(): string | null {
