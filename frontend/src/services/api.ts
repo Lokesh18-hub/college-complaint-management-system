@@ -1,6 +1,13 @@
 const getApiBase = (): string => {
-  const envUrl = (import.meta.env.VITE_API_URL || '').trim();
-  if (!envUrl) return '/api';
+  let envUrl = (import.meta.env.VITE_API_URL || '').trim();
+  if (!envUrl || envUrl === '/api') return '/api';
+
+  // If accidentally prefixed or duplicated (e.g. /apihttps://... or https://...https://...)
+  if (envUrl.includes('http')) {
+    const lastHttp = envUrl.lastIndexOf('http');
+    envUrl = envUrl.substring(lastHttp);
+  }
+
   // Remove trailing slashes
   const cleanUrl = envUrl.replace(/\/+$/, '');
   // If it already ends with /api, use it as is; otherwise append /api
