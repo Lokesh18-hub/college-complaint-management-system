@@ -2,6 +2,14 @@
 
 An enterprise-grade, full-stack **College Complaint Management System (CCMS)** designed to streamline campus grievance reporting, departmental dispatch, resolution timelines, and student verification.
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-black?style=for-the-badge&logo=vercel)](https://college-complaint-management-system-five.vercel.app/)
+[![API Backend](https://img.shields.io/badge/Backend_API-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://college-complaint-management-system-1aee.onrender.com)
+[![Database](https://img.shields.io/badge/Database-Supabase_PostgreSQL-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com)
+
+- 🌐 **Live Web Application**: [https://college-complaint-management-system-five.vercel.app](https://college-complaint-management-system-five.vercel.app)
+- 🚀 **Live Backend API**: [https://college-complaint-management-system-1aee.onrender.com](https://college-complaint-management-system-1aee.onrender.com)
+- 🗄️ **Cloud Database**: Supabase PostgreSQL (Managed Relational Cluster)
+
 ---
 
 ## 🚀 Key Features
