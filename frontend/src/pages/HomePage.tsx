@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { useAuth } from '../context/AuthContext';
+import MoltenMetal from '../components/ui/MoltenMetal';
 
 export const HomePage: React.FC = () => {
   const { isAuthenticated, role } = useAuth();
@@ -58,34 +59,61 @@ export const HomePage: React.FC = () => {
         </div>
       </div>
 
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-slate-900 via-slate-850 to-slate-900 text-white py-16 lg:py-24 px-4 sm:px-6">
+      {/* Hero Section with Dynamic MoltenMetal Canvas */}
+      <section className="relative overflow-hidden bg-slate-950 text-white py-16 lg:py-24 px-4 sm:px-6">
+        {/* MoltenMetal Background Layer */}
+        <div className="absolute inset-0 z-0 opacity-70 pointer-events-auto">
+          <MoltenMetal
+            color1="#1E3A8A"
+            color2="#3B82F6"
+            color3="#BAE6FD"
+            backgroundColor="#0B1120"
+            speed={0.25}
+            scale={3.5}
+            detail={3}
+            glow={1.4}
+            coreSize={0.08}
+            swirl={0.8}
+            fold={-0.2}
+            blackPoint={0.08}
+            brightness={1.15}
+            colorMode="molten"
+            grain={true}
+            grainIntensity={0.04}
+            mouseInteraction={true}
+            mouseStrength={0.25}
+            opacity={0.7}
+          />
+          {/* Subtle gradient vignette to blend into surrounding layout */}
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/50 via-transparent to-slate-950 pointer-events-none" />
+        </div>
+
         <div className="max-w-5xl mx-auto text-center space-y-6 relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-400 text-xs font-semibold">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/15 border border-blue-400/30 text-blue-300 text-xs font-semibold backdrop-blur-md shadow-xs">
             <ShieldCheck className="w-4 h-4 text-blue-400" />
             Official Campus Grievance & Facility Portal
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight drop-shadow-sm">
             Transparent, Accountable <br />
             <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-300 bg-clip-text text-transparent">
               Campus Problem Resolution
             </span>
           </h1>
 
-          <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-200 max-w-2xl mx-auto leading-relaxed drop-shadow-xs">
             Report infrastructure, IT, electrical, or hostel disruptions directly to college maintenance teams. Receive a transparent sequential tracking code and verify resolution when completed.
           </p>
 
-          {/* Role Access Cards */}
+          {/* Role Access Cards with Glassmorphism */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto pt-6 text-left">
             {/* Student Portal Card */}
-            <div className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-blue-500/50 transition-all backdrop-blur-sm group">
-              <div className="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center mb-3 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+            <div className="p-5 rounded-2xl bg-slate-900/60 border border-white/15 hover:border-blue-400/60 transition-all backdrop-blur-md shadow-lg group">
+              <div className="w-10 h-10 rounded-xl bg-blue-600/30 text-blue-400 flex items-center justify-center mb-3 group-hover:bg-blue-600 group-hover:text-white transition-colors border border-blue-500/20">
                 <GraduationCap className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-white">Student Portal</h3>
-              <p className="text-xs text-slate-400 mt-1 mb-4">
+              <p className="text-xs text-slate-300 mt-1 mb-4">
                 Submit complaints, attach photo evidence, track live technician dispatch, and confirm ticket closure.
               </p>
               {isAuthenticated && role === 'STUDENT' ? (
@@ -96,7 +124,7 @@ export const HomePage: React.FC = () => {
                 </Link>
               ) : (
                 <Link to="/login">
-                  <Button size="sm" variant="outline" className="w-full text-white bg-slate-800 hover:bg-slate-700 border-slate-700 font-semibold">
+                  <Button size="sm" variant="outline" className="w-full text-white bg-slate-800/80 hover:bg-slate-700 border-slate-700/80 font-semibold backdrop-blur-sm">
                     Student Sign In
                   </Button>
                 </Link>
@@ -104,12 +132,12 @@ export const HomePage: React.FC = () => {
             </div>
 
             {/* Admin Portal Card */}
-            <div className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/50 transition-all backdrop-blur-sm group">
-              <div className="w-10 h-10 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center mb-3 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+            <div className="p-5 rounded-2xl bg-slate-900/60 border border-white/15 hover:border-purple-400/60 transition-all backdrop-blur-md shadow-lg group">
+              <div className="w-10 h-10 rounded-xl bg-purple-600/30 text-purple-400 flex items-center justify-center mb-3 group-hover:bg-purple-600 group-hover:text-white transition-colors border border-purple-500/20">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-white">Administration & Staff</h3>
-              <p className="text-xs text-slate-400 mt-1 mb-4">
+              <p className="text-xs text-slate-300 mt-1 mb-4">
                 Monitor live incident queue, delegate complaints to departments, manage staff, and audit SLA reports.
               </p>
               {isAuthenticated && role === 'ADMIN' ? (
@@ -120,7 +148,7 @@ export const HomePage: React.FC = () => {
                 </Link>
               ) : (
                 <Link to="/login">
-                  <Button size="sm" variant="outline" className="w-full text-white bg-slate-800 hover:bg-slate-700 border-slate-700 font-semibold">
+                  <Button size="sm" variant="outline" className="w-full text-white bg-slate-800/80 hover:bg-slate-700 border-slate-700/80 font-semibold backdrop-blur-sm">
                     Staff & Admin Access
                   </Button>
                 </Link>
