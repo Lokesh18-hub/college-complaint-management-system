@@ -1,11 +1,20 @@
 const getApiBase = (): string => {
-  let envUrl = (import.meta.env.VITE_API_URL || '').trim();
-  if (!envUrl || envUrl === '/api') return '/api';
+  const raw = (import.meta.env.VITE_API_URL || '').trim();
+  if (!raw || raw === '/api') return '/api';
 
-  // If accidentally prefixed or duplicated (e.g. /apihttps://... or https://...https://...)
+  // If Vercel has multiline or repeated lines, take the first valid line
+  const lines = raw.split(/[\r\n]+/).map((l: string) => l.trim()).filter(Boolean);
+  let envUrl = lines.find((l: string) => l.includes('http')) || lines[0] || '/api';
+
+  // If still prefixed with /api or repeated (e.g. /apihttps://...)
   if (envUrl.includes('http')) {
-    const lastHttp = envUrl.lastIndexOf('http');
-    envUrl = envUrl.substring(lastHttp);
+    const httpIndex = envUrl.indexOf('http');
+    envUrl = envUrl.substring(httpIndex);
+    // If multiple http URLs concatenated on one line, extract only the first valid URL
+    const secondHttp = envUrl.indexOf('http', 4);
+    if (secondHttp !== -1) {
+      envUrl = envUrl.substring(0, secondHttp);
+    }
   }
 
   // Remove trailing slashes
