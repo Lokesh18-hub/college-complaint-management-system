@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String            @id @default(cuid())
+  name         String
+  studentId    String?           @unique
+  email        String            @unique
+  phone        String?
+  department   String?
+  course       String?
+  year         String?
+  semester     String?
+  passwordHash String
+  role         String            @default("STUDENT") // STUDENT | ADMIN
+  avatar       String?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  complaints   Complaint[]
+  updates      ComplaintUpdate[]
+  notifications Notification[]
+
+  @@index([email])
+  @@index([role])
+}
+
+model Department {
+  id          String      @id @default(cuid())
+  name        String      @unique
+  description String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  staff       Staff[]
+  complaints  Complaint[]
+
+  @@index([name])
+}
+
+model Staff {
+  id           String      @id @default(cuid())
+  name         String
+  email        String
+  phone        String?
+  departmentId String
+  department   Department  @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  complaints   Complaint[]
+
+  @@index([departmentId])
+}
+
+model Complaint {
+  id                String            @id @default(cuid())
+  complaintNumber   String            @unique
+  studentId         String
+  student           User              @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  title             String
+  category          String
+  description       String
+  location          String
+  priority          String            @default("MEDIUM") // LOW | MEDIUM | HIGH | CRITICAL
+  status            String            @default("SUBMITTED") // SUBMITTED | UNDER_REVIEW | ASSIGNED | IN_PROGRESS | RESOLVED | CLOSED
+  departmentId      String?
+  department        Department?       @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  assignedStaffId   String?
+  assignedStaff     Staff?            @relation(fields: [assignedStaffId], references: [id], onDelete: SetNull)
+  resolutionDetails String?
+  resolvedBy        String?
+  resolvedAt        DateTime?
+  closedAt          DateTime?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  updates           ComplaintUpdate[]
+  attachments       Attachment[]
+
+  @@index([complaintNumber])
+  @@index([studentId])
+  @@index([status])
+  @@index([priority])
+  @@index([category])
+  @@index([departmentId])
+  @@index([assignedStaffId])
+  @@index([createdAt])
+}
+
+model ComplaintUpdate {
+  id          String    @id @default(cuid())
+  complaintId String
+  complaint   Complaint @relation(fields: [complaintId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment     String
+  status      String?
+  createdAt   DateTime  @default(now())
+
+  @@index([complaintId])
+  @@index([userId])
+}
+
+model Attachment {
+  id          String    @id @default(cuid())
+  complaintId String
+  complaint   Complaint @relation(fields: [complaintId], references: [id], onDelete: Cascade)
+  fileName    String
+  fileUrl     String
+  fileType    String
+  fileSize    Int
+  createdAt   DateTime  @default(now())
+
+  @@index([complaintId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  message   String
+  type      String   @default("INFO") // INFO | SUCCESS | WARNING | ALERT
+  read      Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([read])
+}
