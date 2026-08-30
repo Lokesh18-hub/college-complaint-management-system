@@ -42,10 +42,10 @@ export const HomePage: React.FC = () => {
   return (
     <div className="flex-1 flex flex-col">
       {/* Official Campus Alert Ticker */}
-      <div className="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800 flex items-center justify-between">
+      <div className="relative z-20 bg-slate-900/60 backdrop-blur-md text-slate-300 text-xs py-2.5 px-4 border-b border-white/5 flex items-center justify-between">
         <div className="max-w-6xl mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-400 border border-blue-400/30">
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-400 border border-blue-400/30 tracking-wide uppercase">
               CAMPUS ADVISORY
             </span>
             <span className="text-slate-300 font-medium truncate">
@@ -53,8 +53,8 @@ export const HomePage: React.FC = () => {
             </span>
           </div>
           <div className="flex items-center gap-4 text-slate-400 font-mono text-[11px]">
-            <span>Emergency: <strong className="text-white">ext. 222</strong></span>
-            <span className="hidden sm:inline">IT Helpdesk: <strong className="text-white">ext. 104</strong></span>
+            <span>Emergency: <strong className="text-white font-bold">ext. 222</strong></span>
+            <span className="hidden sm:inline">IT Helpdesk: <strong className="text-white font-bold">ext. 104</strong></span>
           </div>
         </div>
       </div>
@@ -159,7 +159,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* Verified Metrics Counter */}
-      <section className="bg-white border-b border-slate-200/90 py-8 px-4 sm:px-6">
+      <section id="stats" className="bg-white border-b border-slate-200/90 py-8 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="p-4 border-r border-slate-100 last:border-none">
             <p className="text-3xl font-extrabold text-slate-900 font-mono">98.4%</p>
@@ -181,7 +181,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* How It Works Pipeline */}
-      <section className="py-16 bg-slate-50 px-4 sm:px-6 border-b border-slate-200">
+      <section id="workflow" className="py-16 bg-slate-50 px-4 sm:px-6 border-b border-slate-200">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center max-w-2xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
@@ -237,7 +237,7 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* Campus Departments Covered */}
-      <section className="py-16 bg-white px-4 sm:px-6">
+      <section id="departments" className="py-16 bg-white px-4 sm:px-6">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center max-w-2xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
