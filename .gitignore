@@ -4,16 +4,20 @@ node_modules/
 .pnp
 .pnp.js
 
-# Environment and sensitive keys
+# Environment and sensitive keys (Never push real secrets)
 .env
-.env.*
 .env.local
+.env.*.local
 .env.development.local
 .env.test.local
 .env.production.local
 *.env
 backend/.env
 frontend/.env
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+!*.env.example
 
 # Local Databases & storage
 *.db
