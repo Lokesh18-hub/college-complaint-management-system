@@ -118,13 +118,13 @@ export const HomePage: React.FC = () => {
               </p>
               {isAuthenticated && role === 'STUDENT' ? (
                 <Link to="/student/dashboard">
-                  <Button size="sm" className="w-full font-bold">
+                  <Button size="sm" className="w-full font-bold shadow-md shadow-blue-500/20">
                     Go to Student Dashboard
                   </Button>
                 </Link>
               ) : (
                 <Link to="/login">
-                  <Button size="sm" variant="outline" className="w-full text-white bg-slate-800/80 hover:bg-slate-700 border-slate-700/80 font-semibold backdrop-blur-sm">
+                  <Button size="sm" className="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-md shadow-blue-500/25">
                     Student Sign In
                   </Button>
                 </Link>
@@ -142,13 +142,13 @@ export const HomePage: React.FC = () => {
               </p>
               {isAuthenticated && role === 'ADMIN' ? (
                 <Link to="/admin/dashboard">
-                  <Button size="sm" className="w-full font-bold">
+                  <Button size="sm" className="w-full font-bold bg-purple-600 hover:bg-purple-500 text-white shadow-md shadow-purple-500/20">
                     Go to Admin Dashboard
                   </Button>
                 </Link>
               ) : (
                 <Link to="/login">
-                  <Button size="sm" variant="outline" className="w-full text-white bg-slate-800/80 hover:bg-slate-700 border-slate-700/80 font-semibold backdrop-blur-sm">
+                  <Button size="sm" className="w-full bg-purple-600 hover:bg-purple-500 text-white font-semibold shadow-md shadow-purple-500/25">
                     Staff & Admin Access
                   </Button>
                 </Link>

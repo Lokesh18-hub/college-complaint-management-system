@@ -1,5 +1,6 @@
 import React from 'react';
 import { Loader2 } from 'lucide-react';
+import { cn } from '../../utils/cn';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'danger' | 'success' | 'ghost';
@@ -24,15 +25,15 @@ export const Button: React.FC<ButtonProps> = ({
     primary:
       'bg-blue-600 hover:bg-blue-700 text-white shadow-sm shadow-blue-500/20 active:bg-blue-800 focus-visible:ring-blue-500',
     secondary:
-      'bg-slate-850 hover:bg-slate-900 text-white shadow-sm focus-visible:ring-slate-700',
+      'bg-slate-800 hover:bg-slate-900 text-white shadow-sm focus-visible:ring-slate-700',
     outline:
-      'border border-slate-300 hover:bg-slate-100/80 text-slate-750 bg-white shadow-subtle focus-visible:ring-slate-400',
+      'border border-slate-300 hover:bg-slate-100/90 text-slate-800 hover:text-slate-950 bg-white shadow-xs focus-visible:ring-slate-400 font-semibold',
     danger:
       'bg-rose-600 hover:bg-rose-700 text-white shadow-sm shadow-rose-500/20 active:bg-rose-800 focus-visible:ring-rose-500',
     success:
       'bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm shadow-emerald-500/20 active:bg-emerald-800 focus-visible:ring-emerald-500',
     ghost:
-      'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 focus-visible:ring-slate-400',
+      'text-slate-700 hover:text-slate-950 hover:bg-slate-100/80 focus-visible:ring-slate-400',
   };
 
   const sizeStyles = {
@@ -44,7 +45,12 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <button
       disabled={disabled || isLoading}
-      className={`inline-flex items-center justify-center transition-all duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
+      className={cn(
+        'inline-flex items-center justify-center transition-all duration-150 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
+        variantStyles[variant],
+        sizeStyles[size],
+        className
+      )}
       {...props}
     >
       {isLoading ? (
@@ -57,3 +63,4 @@ export const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
+
