@@ -11,8 +11,8 @@ export const PublicLayout: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-blue-600 selection:text-white">
       {/* Floating Modern Pill Navbar (Image 1 Style) */}
-      <header className="sticky top-3 z-50 px-4 sm:px-6 w-full max-w-6xl mx-auto">
-        <div className="rounded-2xl sm:rounded-full bg-slate-900/80 backdrop-blur-xl border border-white/10 shadow-2xl px-4 sm:px-6 py-2.5 flex items-center justify-between transition-all hover:border-white/20">
+      <header className="sticky top-4 z-50 px-4 sm:px-6 w-full max-w-6xl mx-auto mb-2">
+        <div className="rounded-2xl sm:rounded-full bg-slate-900/90 backdrop-blur-xl border border-white/10 shadow-2xl px-4 sm:px-6 py-2.5 flex items-center justify-between transition-all hover:border-white/20">
           {/* Logo Section */}
           <Link to="/" className="flex items-center gap-2.5 group">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 via-sky-500 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-blue-500/25 group-hover:scale-105 transition-transform">

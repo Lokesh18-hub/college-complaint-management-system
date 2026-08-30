@@ -41,14 +41,14 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="flex-1 flex flex-col">
-      {/* Official Campus Alert Ticker */}
-      <div className="relative z-20 bg-slate-900/60 backdrop-blur-md text-slate-300 text-xs py-2.5 px-4 border-b border-white/5 flex items-center justify-between">
-        <div className="max-w-6xl mx-auto w-full flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
+      {/* Official Campus Alert Ticker - Positioned cleanly below floating navbar */}
+      <div className="px-4 sm:px-6 max-w-6xl mx-auto w-full pt-1 pb-3 z-20">
+        <div className="rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-md px-4 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-lg hover:border-white/20 transition-all">
+          <div className="flex items-center gap-2.5">
             <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-400 border border-blue-400/30 tracking-wide uppercase">
               CAMPUS ADVISORY
             </span>
-            <span className="text-slate-300 font-medium truncate">
+            <span className="text-slate-300 text-xs font-medium truncate">
               Standard SLA for critical incidents is under 4 hours. Maintenance crews are active 24/7.
             </span>
           </div>
@@ -60,7 +60,7 @@ export const HomePage: React.FC = () => {
       </div>
 
       {/* Hero Section with Dynamic MoltenMetal Canvas */}
-      <section className="relative overflow-hidden bg-slate-950 text-white py-16 lg:py-24 px-4 sm:px-6">
+      <section className="relative overflow-hidden bg-slate-950 text-white py-12 lg:py-20 px-4 sm:px-6">
         {/* MoltenMetal Background Layer */}
         <div className="absolute inset-0 z-0 opacity-70 pointer-events-auto">
           <MoltenMetal
