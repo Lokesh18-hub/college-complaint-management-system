@@ -23,7 +23,7 @@ An enterprise-grade, full-stack **College Complaint Management System (CCMS)** d
 |---|---|
 | **Frontend** | React 18, TypeScript, Tailwind CSS, Vite, React Router v7, Lucide Icons, Recharts, React Hook Form, Zod |
 | **Backend** | Node.js, Express.js, TypeScript, Prisma ORM, JWT, Bcrypt, Multer, Helmet, Rate Limiter, Morgan |
-| **Database** | SQLite (zero-config out-of-the-box) / PostgreSQL compatible via Prisma |
+| **Database** | **Supabase (Cloud PostgreSQL)** via Prisma ORM (with connection pooling) |
 
 ---
 
@@ -87,24 +87,71 @@ college-complaint-management-system/
 
 ---
 
-## ⚡ Step-by-Step Installation & Local Execution
+## 🗄️ Supabase Database Architecture
+
+The application is powered by **Supabase (PostgreSQL)** managing 7 core relational tables:
+
+```
+┌─────────────────┐       ┌─────────────────┐       ┌─────────────────┐
+│     User        │ 1   * │    Complaint    │ *   1 │   Department    │
+│ (Student/Admin) │──────>│ (Tickets/Queue) │<──────│ (IT, Elec, etc) │
+└─────────────────┘       └─────────────────┘       └─────────────────┘
+        │ 1                        │ 1                       │ 1
+        │                          │                         │
+        ▼ *                        ▼ *                       ▼ *
+┌─────────────────┐       ┌─────────────────┐       ┌─────────────────┐
+│  Notification   │       │ ComplaintUpdate │       │      Staff      │
+│ (Alerts/Badges) │       │ (Audit Timeline)│       │  (Technicians)  │
+└─────────────────┘       └─────────────────┘       └─────────────────┘
+                                   │ 1
+                                   ▼ *
+                          ┌─────────────────┐
+                          │   Attachment    │
+                          │ (Photos/Proofs) │
+                          └─────────────────┘
+```
+
+### Database Tables Overview:
+1. **`User`**: Student profiles (Name, Email, Student ID, Department, Course, Year, Semester) & System Administrators.
+2. **`Department`**: Campus divisions handling grievances (IT Services, Electrical, Maintenance, Hostels, Transport, etc.).
+3. **`Staff`**: Designated technicians and specialists assigned to solve issues.
+4. **`Complaint`**: Master complaint records with auto-generated tracking numbers (`CMP-XXXX`), categories, priority levels, and resolution stamps.
+5. **`ComplaintUpdate`**: Real-time chronological audit trail capturing comments, internal notes, and status changes.
+6. **`Attachment`**: Uploaded evidence files, screenshots, and issue documentation.
+7. **`Notification`**: Real-time alerts and unread indicators for users.
+
+---
+
+## ⚡ Supabase Setup & Local Execution
 
 ### 1. Prerequisites
 - Node.js (v18+)
 - npm (v9+)
+- Free account on [Supabase](https://supabase.com)
 
-### 2. Backend Setup
+### 2. Configure Supabase Database
+1. Create a new project on [supabase.com](https://supabase.com).
+2. Go to **Project Settings** ➔ **Database** and copy your **Connection String** (Transaction Pooler or Direct URI).
+3. Create your `backend/.env` file from the template:
+   ```bash
+   cp backend/.env.example backend/.env
+   ```
+4. Set your `DATABASE_URL` in `backend/.env`:
+   ```env
+   DATABASE_URL="postgresql://postgres.[PROJECT-REF]:[YOUR-PASSWORD]@aws-0-[REGION].pooler.supabase.com:5432/postgres"
+   ```
+
+### 3. Initialize & Seed Database
 ```bash
 cd backend
 npm install
-npx prisma generate
 npx prisma db push
-npx ts-node prisma/seed.ts
+npm run seed
 npm run dev
 ```
-*The backend API server will start on `http://localhost:5000`.*
+*The backend will connect to Supabase, push all 7 tables, seed demo data, and start on `http://localhost:5000`.*
 
-### 3. Frontend Setup
+### 4. Frontend Setup
 In a new terminal:
 ```bash
 cd frontend
