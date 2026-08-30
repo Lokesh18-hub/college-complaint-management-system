@@ -20,5 +20,10 @@ export const config = {
     cloudName: process.env.CLOUDINARY_CLOUD_NAME || '',
     apiKey: process.env.CLOUDINARY_API_KEY || '',
     apiSecret: process.env.CLOUDINARY_API_SECRET || '',
+  },
+  supabase: {
+    url: process.env.SUPABASE_URL || 'https://rpfnxyqnnnzrfepexlcf.supabase.co',
+    anonKey: process.env.SUPABASE_ANON_KEY || '',
+    serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY || '',
   }
 };
