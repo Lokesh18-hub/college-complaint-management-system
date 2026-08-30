@@ -51,10 +51,15 @@ class ApiClient {
           }
         }
 
+        const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
         const errorMessage =
           data.message ||
           (data.errors && data.errors.map((e: any) => e.message).join(', ')) ||
-          'An error occurred with the request';
+          (response.status === 502 || response.status === 503 || response.status === 504 || response.status === 500
+            ? isDev
+              ? 'Unable to connect to backend server. Please verify backend is running on port 5000.'
+              : 'Backend server is waking up from sleep or unavailable. Please wait 30 seconds and try again.'
+            : 'An error occurred with the request');
 
         const error: any = new Error(errorMessage);
         error.status = response.status;
@@ -64,6 +69,14 @@ class ApiClient {
 
       return data;
     } catch (error: any) {
+      if (error.name === 'TypeError' && error.message?.toLowerCase().includes('fetch')) {
+        const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        throw new Error(
+          isDev
+            ? 'Unable to connect to backend server. Please verify backend is running on port 5000.'
+            : 'Unable to reach backend service (Render free instance may be spinning up). Please retry in 30 seconds.'
+        );
+      }
       throw error;
     }
   }
